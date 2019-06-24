@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Hello__France
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			List<string> typeAndPrice = Console.ReadLine().Split("|").ToList();
+			double bugget = double.Parse(Console.ReadLine());
+
+			List<string> type = new List<string>();
+			List<double> price = new List<double>();
+			List<double> newPrice = new List<double>();
+
+			string[] split = new string[2] ;
+
+			double profit = 0;
+
+			for (int i = 0; i < typeAndPrice.Count; i++)
+			{
+				split = typeAndPrice[i].Split("->");
+
+				type.Add(split[0]);
+				price.Add(double.Parse(split[1]));
+			}
+
+			for (int i = 0; i < type.Count; i++)
+			{
+				if (type[i].Equals("Clothes"))
+				{
+					if (price[i] <= 50 && price[i] <= bugget)
+					{
+						bugget -= price[i];
+
+						Console.Write($"{price[i] * 1.4:f2} ");
+
+						profit += (price[i] * 1.4) - price[i];
+
+						newPrice.Add(price[i] * 1.4);
+					}
+				}
+				else if (type[i].Equals("Shoes"))
+				{
+					if (price[i] <= 35 && price[i] <= bugget)
+					{
+						bugget -= price[i];
+
+						Console.Write($"{price[i] * 1.4:f2} ");
+
+						profit += (price[i] * 1.4) - price[i];
+
+						newPrice.Add(price[i] * 1.4);
+					}
+				}
+				else
+				{
+					if (price[i] <= 20.5 && price[i] <= bugget)
+					{
+						bugget -= price[i];
+
+						Console.Write($"{price[i] * 1.4:f2} ");
+
+						profit += (price[i] * 1.4) - price[i];
+
+						newPrice.Add(price[i] * 1.4);
+					}
+				}
+			}
+			Console.WriteLine();
+			Console.WriteLine($"Profit: {profit:f2}");
+
+			double sum = newPrice.Sum() + bugget;
+
+			if (sum >= 150)
+			{
+				Console.WriteLine("Hello, France!");
+			}
+			else
+			{
+				Console.WriteLine("Time to go.");
+			}
+
+		}
+	}
+}
