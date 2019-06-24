@@ -1,0 +1,52 @@
+using System;
+
+namespace Spring_Vacation_Trip
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int daysOfTrip = int.Parse(Console.ReadLine());
+			double budget = double.Parse(Console.ReadLine());
+			int peopleInGroup = int.Parse(Console.ReadLine());
+			double priceForFuelPerKilometer = double.Parse(Console.ReadLine());
+			double foodPerPersonForDay = double.Parse(Console.ReadLine());
+			double priceForRoomPerPersonForNight = double.Parse(Console.ReadLine());
+
+			if (peopleInGroup > 10)
+			{
+				priceForRoomPerPersonForNight *= 0.75;
+			}
+
+			double foodForTrip = foodPerPersonForDay * daysOfTrip * peopleInGroup;
+			double priceForHotel = priceForRoomPerPersonForNight * daysOfTrip * peopleInGroup;
+
+			double expenses = foodForTrip + priceForHotel;
+
+			for (int i = 1; i <= daysOfTrip; i++)
+			{
+				double kilometersPerDay = double.Parse(Console.ReadLine());
+
+				expenses += kilometersPerDay * priceForFuelPerKilometer;
+
+				if ((i % 3).Equals(0) || (i % 5).Equals(0))
+				{
+					expenses *= 1.4;
+				}
+
+				if ((i % 7).Equals(0))
+				{
+					expenses -= expenses / peopleInGroup;
+				}
+
+				if (expenses > budget)
+				{
+					Console.WriteLine($"Not enough money to continue the trip. You need {expenses - budget:f2}$ more.");
+					return;
+				}
+			}
+
+			Console.WriteLine($"You have reached the destination. You have {budget - expenses:F2}$ budget left.");
+		}
+	}
+}
